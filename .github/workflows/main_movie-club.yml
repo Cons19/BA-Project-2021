@@ -20,14 +20,14 @@ jobs:
     - name: 'Checkout Github Action'
       uses: actions/checkout@master
 
-
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
 
-    #- name: npm install
     - run: npm install
+        npm run build 
+        npm run test
       working-directory: ${{env.working-directory}}
     - run: npm install
       working-directory: ./server/gateway/mcdb_gateway
