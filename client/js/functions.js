@@ -5,7 +5,7 @@
 * @version  1.0 29 APR 2021
 */
 "use strict";
-const URLPath = 'http://localhost:8001';
+const URLPath = 'http://localhost:8000';
 
 function clearModalData() {
     // Clear Modal Data from previous results
