@@ -12,6 +12,9 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      working-directory: ./server
+      
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
@@ -23,11 +26,11 @@ jobs:
       with:
         node-version: '14.x'
 
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run build --if-present
-        npm run test --if-present
+    #- name: npm install
+    - run: npm install
+      working-directory: ${{env.working-directory}}
+    - run: npm install
+      working-directory: ./server/gateway/mcdb_gateway
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
