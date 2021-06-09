@@ -25,13 +25,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ env.NODE_VERSION }}
-    - name: npm install, build, and test
-      run: | 
+    - run: npm install
+      working-directory: ./server/gateway/mcdb_gateway
+    - run: | 
         npm install
         npm run test
       working-directory: ${{env.working-directory}}
-    - run: npm install
-      working-directory: ./server/gateway/mcdb_gateway
+
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
