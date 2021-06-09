@@ -12,7 +12,7 @@ env:
   working-directory: ./server
   NODE_VERSION: '14.x'
   AZURE_WEBAPP_NAME: movie-club
-  AZURE_WEBAPP_PACKAGE_PATH: ./client
+  AZURE_WEBAPP_PACKAGE_PATH: ./server
 
 jobs:
   build-and-deploy:
