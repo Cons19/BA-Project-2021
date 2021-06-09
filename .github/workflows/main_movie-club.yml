@@ -8,24 +8,26 @@ on:
     branches:
       - main
 
+env:
+  working-directory: ./server
+  NODE_VERSION: '14.x'
+  AZURE_WEBAPP_NAME: movie-club
+  AZURE_WEBAPP_PACKAGE_PATH: './server'
+
 jobs:
   build-and-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
-
-    env:
-      working-directory: ./server
-      
     steps:
-    # checkout the repo
     - name: 'Checkout Github Action'
-      uses: actions/checkout@master
-
+      uses: actions/checkout@main
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '14.x'
-
-    - run: npm install
+        node-version: ${{ env.NODE_VERSION }}
+    - name: npm install, build, and test
+      run: | 
+        npm install
         npm run build 
         npm run test
       working-directory: ${{env.working-directory}}
@@ -35,8 +37,8 @@ jobs:
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
       with:
-        app-name: movie-club
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_87DD4641FC814F309C0BE4389781C01A }}
-        package: .
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
